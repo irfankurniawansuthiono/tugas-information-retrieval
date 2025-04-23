@@ -11,14 +11,16 @@ const client = new Client({
 
 // Contoh pengetahuan sederhana
 const knowledgeBase = [
-  "Halo! Ada yang bisa saya bantu?",
+ `Selamat pagi,\nSaya adalah Nanami, asisten cerdas dan dapat memberikan informasi seputar akademik. \n`,
+  "Alamat UPM berada di blablabla",
+  "halo, selamat datang di server kami!",
   "irfan adalah pengembang saya.",
   "Saya adalah Nanami, asisten cerdas yang dikembangkan oleh Irfan.",
   "Kunjungi situs irfanks.site untuk info lebih lanjut.",
   "Saya suka diskusi tentang coding, AI, dan teknologi masa depan.",
   "Irfan adalah mahasiswa di UPI YPTK PADANG.",
 ];
-
+    
 const tfidf = new natural.TfIdf();
 knowledgeBase.forEach((text) => tfidf.addDocument(text));
 
@@ -34,9 +36,9 @@ client.on('messageCreate', (message) => {
 
   tfidf.tfidfs(message.content, (i, score) => {
       if (score > maxScore) {
-          maxScore = score;
-          console.log(score, bestReply);
+        maxScore = score;
         bestReply = knowledgeBase[i];
+        console.log(score, bestReply);
     }
   });
 
